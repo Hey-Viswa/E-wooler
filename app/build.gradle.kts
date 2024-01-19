@@ -68,4 +68,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.17.0")
+    implementation("com.google.accompanist:accompanist-pager:0.32.0") // This dependency is used for horizontal pager
 }
