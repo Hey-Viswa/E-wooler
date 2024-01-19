@@ -1,4 +1,4 @@
-package tech_titans.e_wooler
+package tech_titans.e_wooler.Activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
+import tech_titans.e_wooler.R
 import tech_titans.e_wooler.ui.theme.EwoolerTheme
 import tech_titans.e_wooler.ui.theme.Mushroom_white
 

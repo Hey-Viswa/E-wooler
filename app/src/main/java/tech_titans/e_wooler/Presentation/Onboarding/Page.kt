@@ -1,6 +1,7 @@
-package tech_titans.e_wooler
+package tech_titans.e_wooler.Presentation.Onboarding
 
 import androidx.annotation.DrawableRes
+import tech_titans.e_wooler.R
 
 data class Page(
     val title: String,

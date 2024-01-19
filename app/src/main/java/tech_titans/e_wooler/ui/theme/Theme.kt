@@ -14,27 +14,66 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.google.accompanist.systemuicontroller.SystemUiController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Green80,
+    onPrimary = Green20,
+    primaryContainer = Green30,
+    onPrimaryContainer = Green90,
+    inversePrimary = Green40,
+    secondary = DarkGreen80,
+    onSecondary = DarkGreen20,
+    secondaryContainer = DarkGreen30,
+    onSecondaryContainer = DarkGreen90,
+    tertiary = Violet80,
+    onTertiary = Violet20,
+    tertiaryContainer = Violet30,
+    onTertiaryContainer = Violet90,
+    error = Red80,
+    onError = Red20,
+    errorContainer = Red30,
+    onErrorContainer = Red90,
+    background = Grey10,
+    onBackground = Grey90,
+    surface = GreenGrey30,
+    onSurface = GreenGrey80,
+    inverseSurface = Grey90,
+    inverseOnSurface = Grey10,
+    surfaceVariant = GreenGrey30,
+    onSurfaceVariant = GreenGrey80,
+    outline = GreenGrey80
+
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = Green80,
+    onPrimary = Green20,
+    primaryContainer = Green30,
+    onPrimaryContainer = Green90,
+    inversePrimary = Green40,
+    secondary = DarkGreen80,
+    onSecondary = DarkGreen20,
+    secondaryContainer = DarkGreen30,
+    onSecondaryContainer = DarkGreen90,
+    tertiary = Violet80,
+    onTertiary = Violet20,
+    tertiaryContainer = Violet30,
+    onTertiaryContainer = Violet90,
+    error = Red80,
+    onError = Red20,
+    errorContainer = Red30,
+    onErrorContainer = Red90,
+    background = Grey10,
+    onBackground = Grey90,
+    surface = GreenGrey30,
+    onSurface = GreenGrey80,
+    inverseSurface = Grey90,
+    inverseOnSurface = Grey10,
+    surfaceVariant = GreenGrey30,
+    onSurfaceVariant = GreenGrey80,
+    outline = GreenGrey80
 )
 
 @Composable
@@ -49,6 +88,7 @@ fun EwoolerTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
+
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
@@ -60,6 +100,9 @@ fun EwoolerTheme(
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }
+    val systemUiController: SystemUiController = rememberSystemUiController()
+
+    systemUiController.isStatusBarVisible = true // Status bar
 
 
     MaterialTheme(

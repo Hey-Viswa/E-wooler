@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalFoundationApi::class)
 
-package tech_titans.e_wooler
+package tech_titans.e_wooler.Activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -51,6 +51,8 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import tech_titans.e_wooler.Presentation.Onboarding.Component.OnBoardingPage
+import tech_titans.e_wooler.Presentation.Onboarding.pages
 import tech_titans.e_wooler.ui.theme.BottomCardShape
 import tech_titans.e_wooler.ui.theme.CharlesStoneGreen
 import tech_titans.e_wooler.ui.theme.ColorBlue
@@ -74,7 +76,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
+                    OnBoardingPage(page = pages[0])
                 }
             }
         }
