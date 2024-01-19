@@ -10,6 +10,8 @@ import tech_titans.e_wooler.R
 
 val Poppins = FontFamily(Font(R.font.poppins))
 val ReemKufi = FontFamily(Font(R.font.reemkufi))
+val notosansvar = FontFamily(Font(R.font.noto_sans_variablefont))
+val notosans = FontFamily(Font(R.font.notosans))
 
 // Set of Material typography styles to start with
 val Typography = Typography(

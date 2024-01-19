@@ -47,13 +47,12 @@ fun OnBoardingPage(
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
             color = colorResource(id = R.color.display_small),
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = page.description,
             modifier.padding(horizontal = MediumPadding2),
             style = MaterialTheme.typography.bodyMedium,
             color = colorResource(id = R.color.text_medium),
-
             )
     }
 }
