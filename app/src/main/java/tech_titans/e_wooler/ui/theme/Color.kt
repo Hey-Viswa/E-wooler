@@ -296,4 +296,6 @@ val surfaceContainerHighestDarkHighContrast = Color(0xFF36343A)
 
 
 
+val LightBlueWhite = Color(0xFFF1F5F9) //Social media background
+
 
