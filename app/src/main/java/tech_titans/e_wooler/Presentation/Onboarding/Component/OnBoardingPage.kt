@@ -15,6 +15,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import tech_titans.e_wooler.Presentation.Onboarding.Component.Dimens.MediumPadding1
@@ -45,15 +46,16 @@ fun OnBoardingPage(
             text = page.title,
             modifier.padding(horizontal = MediumPadding2),
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-            color = colorResource(id = R.color.display_small),
+            color = MaterialTheme.colorScheme.primary
         )
-        Spacer(modifier = Modifier.height(5.dp))
+        Spacer(modifier = Modifier.height(2.dp))
         Text(
             text = page.description,
             modifier.padding(horizontal = MediumPadding2),
             style = MaterialTheme.typography.bodyMedium,
-            color = colorResource(id = R.color.text_medium),
-            )
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            textAlign = TextAlign.Justify
+        )
     }
 }
 
@@ -61,8 +63,6 @@ fun OnBoardingPage(
 @Composable
 fun OnBoardingPagePreview() {
     EwoolerTheme {
-        OnBoardingPage(
-            page = pages[0]
-        )
+        OnBoardingPage(page = pages[0])
     }
 }
