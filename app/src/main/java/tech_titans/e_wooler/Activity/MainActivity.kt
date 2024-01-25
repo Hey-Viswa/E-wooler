@@ -8,19 +8,22 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.navigation.NavHostController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 import tech_titans.e_wooler.MainViewModel
-import tech_titans.e_wooler.Presentation.Onboarding.Nvgraph.NavGraph
+import tech_titans.e_wooler.Presentation.Onboarding.Nvgraph.Screens
 import tech_titans.e_wooler.ui.theme.EwoolerTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    val viewModel by viewModels<MainViewModel>()
+    private  lateinit var navController: NavHostController
+    private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +45,39 @@ class MainActivity : ComponentActivity() {
 
                 // A surface container using the 'background' color from the theme
                 Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)) {
-                    val startDestination = viewModel.startDestination
-                    NavGraph(startDestination = startDestination)
+
+
                 }
             }
+        }
+    }
+//    @Composable
+//    private fun AuthState() {
+//        val isUserSignedOut = viewModel.getAuthState().collectAsState().value
+//        if (isUserSignedOut) {
+//            NavigateToSignInScreen()
+//        } else {
+//                NavigateToHomeScreen()
+//        }
+//    }
+    @Composable
+    private fun NavigateToSignInScreen() = navController.navigate(Screens.LoginScreen.route) {
+        popUpTo(navController.graph.id) {
+            inclusive = true
+        }
+    }
+
+    @Composable
+    private fun NavigateToRegisterScreen() = navController.navigate(Screens.RegisterScreen.route) {
+        popUpTo(navController.graph.id) {
+            inclusive = true
+        }
+    }
+
+    @Composable
+    private fun NavigateToHomeScreen() = navController.navigate(Screens.HomeScreen.route) {
+        popUpTo(navController.graph.id) {
+            inclusive = true
         }
     }
 }

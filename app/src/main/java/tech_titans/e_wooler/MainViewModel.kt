@@ -1,39 +1,43 @@
 package tech_titans.e_wooler
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import tech_titans.e_wooler.Domain.Manager.UseCases.AppEntryUseCase
-import tech_titans.e_wooler.Presentation.Onboarding.Nvgraph.Route
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
+import tech_titans.e_wooler.Domain.Manager.UseCases.Resource
+import tech_titans.e_wooler.Presentation.Onboarding.Component.LoginState
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val appEntryUseCase: AppEntryUseCase
-) : ViewModel() {
+    private val repository: AuthRepository,
 
-    var splashCondition by mutableStateOf(true)
-        private set
+    ) : ViewModel() {
 
-    var startDestination by mutableStateOf(Route.AppStartNavigation.route)
-        private set
+    val _LoginState = Channel<LoginState>()
+    val LoginState = _LoginState.receiveAsFlow()
 
-    init {
-        appEntryUseCase.readAppEntry().onEach { shouldStartFromLoginScreen ->
-            if (shouldStartFromLoginScreen) {
-                startDestination = Route.NewsNavigation.route
-            } else {
-                startDestination = Route.AppStartNavigation.route
+
+    fun loginUser(email: String, password: String) = viewModelScope.launch {
+        repository.loginUser(email, password).collect() { result ->
+            when (result) {
+                is Resource.Success -> {
+                    _LoginState.send(LoginState(isSuccess = "Login Success"))
+                }
+
+                is Resource.Loading -> {
+                    _LoginState.send(LoginState(isLoading = true))
+                }
+
+                is Resource.Error -> {
+                    _LoginState.send(LoginState(isError = result.message))
+                }
             }
-            delay(300)
-            splashCondition = false
-        }.launchIn(viewModelScope)
+
+        }
     }
+
 
 }

@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="tech_titans.e_wooler" />
+                  <option name="mobileSdkAppId" value="1:460167819630:android:7ab928e6fd3c714badd17f" />
+                  <option name="projectId" value="ewooler-c169d" />
+                  <option name="projectNumber" value="460167819630" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
