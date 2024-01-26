@@ -1,5 +1,7 @@
-package tech_titans.e_wooler.Presentation.Onboarding
+package tech_titans.e_wooler.Activity
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,18 +21,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
+import tech_titans.e_wooler.Presentation.Onboarding.Common.Dimens.MediumPadding2
+import tech_titans.e_wooler.Presentation.Onboarding.Common.Dimens.PageIndicatorWidth
 import tech_titans.e_wooler.Presentation.Onboarding.Common.WoolButton
 import tech_titans.e_wooler.Presentation.Onboarding.Common.WoolTextButton
-import tech_titans.e_wooler.Presentation.Onboarding.Component.Dimens.MediumPadding2
-import tech_titans.e_wooler.Presentation.Onboarding.Component.Dimens.PageIndicatorWidth
 import tech_titans.e_wooler.Presentation.Onboarding.Component.OnBoardingPage
 import tech_titans.e_wooler.Presentation.Onboarding.Component.PageIndicator
+import tech_titans.e_wooler.Presentation.Onboarding.Component.pages
+import tech_titans.e_wooler.Presentation.Onboarding.Nvgraph.Screens
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnBoardingScreen(
-    event: (OnBoardingEvent) -> Unit
+    navController: NavHostController
 ) {
     Column(modifier = Modifier) {
         val pagerState = rememberPagerState(initialPage = 0) {
@@ -47,7 +52,9 @@ fun OnBoardingScreen(
             }
         }
         HorizontalPager(state = pagerState) { index ->
-            Box(modifier = Modifier.fillMaxWidth().fillMaxHeight(0.9f)) {
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.9f)) {
                 OnBoardingPage(page = pages[index])
             }
         }
@@ -75,7 +82,14 @@ fun OnBoardingScreen(
                         text = buttonState.value[0],
                         onClick = {
                             scope.launch {
-                                pagerState.animateScrollToPage(page = pagerState.currentPage - 1)
+                                pagerState.animateScrollToPage(
+                                    page = pagerState.currentPage - 1,
+                                    animationSpec = spring(
+                                        dampingRatio = Spring.DampingRatioNoBouncy,
+                                        stiffness = Spring.StiffnessHigh
+                                    )
+                                )
+
                             }
                         }
                     )
@@ -85,12 +99,18 @@ fun OnBoardingScreen(
                     onClick = {
                         scope.launch {
                             if (pagerState.currentPage == 2) {
-                                event(OnBoardingEvent.SaveAppEntry)
+                                // Handle navigation to the next destination
+                                navController.navigate(Screens.SignupAndLoginScreen.route)
                             } else {
                                 pagerState.animateScrollToPage(
-                                    page = pagerState.currentPage + 1
+                                    page = pagerState.currentPage + 1,
+                                    animationSpec = spring(
+                                        dampingRatio = Spring.DampingRatioNoBouncy,
+                                        stiffness = Spring.StiffnessHigh
+                                    )
                                 )
                             }
+
                         }
                     }
                 )

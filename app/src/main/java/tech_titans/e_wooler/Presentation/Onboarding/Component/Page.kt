@@ -1,4 +1,4 @@
-package tech_titans.e_wooler.Presentation.Onboarding
+package tech_titans.e_wooler.Presentation.Onboarding.Component
 
 import androidx.annotation.DrawableRes
 import tech_titans.e_wooler.R

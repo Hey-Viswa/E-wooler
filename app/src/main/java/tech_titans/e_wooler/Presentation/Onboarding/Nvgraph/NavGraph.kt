@@ -1,41 +1,30 @@
 package tech_titans.e_wooler.Presentation.Onboarding.Nvgraph
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHost
-import tech_titans.e_wooler.Activity.Registerscreen
-import tech_titans.e_wooler.Presentation.Onboarding.OnBoardingScreen
-import tech_titans.e_wooler.Presentation.Onboarding.OnBoardingViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import tech_titans.e_wooler.Activity.OnBoardingScreen
+import tech_titans.e_wooler.Activity.SignupAndLoginScreenLayout
 
-//@Composable
-//fun NavGraph(
-//    startDestination: String
-//) {
-//    val navController = rememberNavController()
-//
-//    NavHost(navController = navController, startDestination = startDestination) {
-//        navigation(
-//            route = Screens.AppStartNavigation.route,
-//            startDestination = Screens.OnBoardingScreen.route
-//        ) {
-//            composable(
-//                route = Screens.OnBoardingScreen.route
-//            ) {
-//                val viewModel: OnBoardingViewModel = hiltViewModel()
-//                OnBoardingScreen(
-//                    event = viewModel::onEvent
-//                )
-//            }
-//        }
-//        navigation(
-//            route = Screens.NewsNavigation.route,
-//            startDestination = Screens.NewsNavigatorScreen.route
-//        ) {
-//            composable(
-//                route = Screens.NewsNavigatorScreen.route
-//            ) {
-//                Registerscreen()
-//            }
-//        }
-//    }
-//}
+@Composable
+fun NavigationGraph(
+    navController: NavHostController = rememberNavController(),
+    startDestination: String = Screens.OnBoardingScreen.route
+) {
+    NavHost(
+        navController = navController,
+        startDestination = startDestination
+    ) {
+        composable(route = Screens.OnBoardingScreen.route) {
+           OnBoardingScreen(navController = navController)
+        }
+        composable(route = Screens.SignupAndLoginScreen.route) {
+            SignupAndLoginScreenLayout()
+        }
+        composable(route = Screens.RegisterScreen.route) {
+
+        }
+    }
+}

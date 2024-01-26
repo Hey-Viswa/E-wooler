@@ -22,7 +22,7 @@ import tech_titans.e_wooler.R
 import tech_titans.e_wooler.ui.theme.EwoolerTheme
 import tech_titans.e_wooler.ui.theme.Mushroom_white
 
-class SplashActivity : ComponentActivity() {
+class SplashScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -38,7 +38,7 @@ class SplashActivity : ComponentActivity() {
     private fun splashScreen() {
         LaunchedEffect(key1 = true) {
             delay(2000)
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            startActivity(Intent(this@SplashScreen, MainActivity::class.java))
             finish()
 
         }

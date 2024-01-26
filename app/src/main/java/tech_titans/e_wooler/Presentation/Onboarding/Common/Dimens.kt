@@ -1,4 +1,4 @@
-package tech_titans.e_wooler.Presentation.Onboarding.Component
+package tech_titans.e_wooler.Presentation.Onboarding.Common
 
 import androidx.compose.ui.unit.dp
 

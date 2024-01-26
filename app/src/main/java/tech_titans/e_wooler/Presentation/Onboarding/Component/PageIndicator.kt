@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
-import tech_titans.e_wooler.Presentation.Onboarding.Component.Dimens.IndicatorSize
+import tech_titans.e_wooler.Presentation.Onboarding.Common.Dimens.IndicatorSize
 import tech_titans.e_wooler.ui.theme.BlueGray
 import tech_titans.e_wooler.ui.theme.EwoolerTheme
 

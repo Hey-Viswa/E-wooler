@@ -67,6 +67,7 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences-core:1.0.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("com.google.firebase:firebase-auth:22.3.1")
+    implementation("com.google.firebase:firebase-firestore:24.10.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -87,7 +88,7 @@ dependencies {
 
 
     // navgraph
-    val nav_version = "2.7.7"
+    val nav_version = "2.7.6"
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
     //splsh
@@ -105,6 +106,11 @@ dependencies {
 
     // extended icon
     implementation("androidx.compose.material:material-icons-extended:1.6.0-rc01")
+
+    implementation ("com.google.accompanist:accompanist-navigation-animation:0.21.1-beta")
+
+    //lottie
+    implementation("com.airbnb.android:lottie-compose:6.1.0")
 
 
 }

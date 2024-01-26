@@ -1,5 +1,12 @@
-package tech_titans.e_wooler.Presentation.Onboarding.Component
+package tech_titans.e_wooler.Presentation.Onboarding.Common
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -16,12 +23,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
+import tech_titans.e_wooler.R
 
 @Composable
 fun LoginTextFieldEmail(
@@ -131,5 +142,42 @@ fun LoginTextFieldPassword(
 
 
         )
+}
+@Composable
+private fun SocialMediaSection() {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "Or continue with",
+            style = MaterialTheme.typography.labelSmall.copy(color = Color(0xff64748b))
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(1f)
+                .padding(),
+            verticalAlignment = Alignment.CenterVertically,
+
+
+            ) {
+
+            SocialMediaLogin(
+                icon = R.drawable.google,
+                text = "Google  ",
+                modifier = Modifier.weight(1f)
+            ) {
+
+            }
+            Spacer(modifier = Modifier.width(20.dp))
+            SocialMediaLogin(
+                icon = R.drawable.facebook,
+                text = "Facebook",
+                modifier = Modifier.weight(1f)
+            ) {
+
+            }
+        }
+    }
 }
 
