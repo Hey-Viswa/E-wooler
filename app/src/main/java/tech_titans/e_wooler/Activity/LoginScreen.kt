@@ -15,7 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Password
-import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
@@ -44,6 +43,7 @@ import tech_titans.e_wooler.Presentation.Onboarding.Component.CustomClickableTex
 import tech_titans.e_wooler.Presentation.Onboarding.Component.CustomRoundedShape
 import tech_titans.e_wooler.Presentation.Onboarding.Component.CustomText
 import tech_titans.e_wooler.Presentation.Onboarding.Component.HeadlineTextComponent
+import tech_titans.e_wooler.Presentation.Onboarding.Component.MyPasswordTextField
 import tech_titans.e_wooler.Presentation.Onboarding.Component.MyTextField
 import tech_titans.e_wooler.Presentation.Onboarding.Component.NormalTextComponent
 import tech_titans.e_wooler.Presentation.Onboarding.Nvgraph.Screens
@@ -95,11 +95,7 @@ fun LoginScreen(navController: NavController) {
                 Icons.Outlined.Email,
                 null
             )
-            MyTextField(
-                labelValue = "Password",
-                Icons.Outlined.Password,
-                Icons.Outlined.VisibilityOff
-            )
+            MyPasswordTextField(labelValue = "Password", leadingIcon = Icons.Outlined.Password)
             Spacer(modifier = Modifier.height(15.dp))
             ElevatedButton(
                 onClick = {},
@@ -111,7 +107,9 @@ fun LoginScreen(navController: NavController) {
                     defaultElevation = 5.dp
                 ),
                 shape = RoundedCornerShape(size = 10.dp),
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
             ) {
                 Text(
                     text = "Login",
@@ -164,41 +162,41 @@ fun LoginScreen(navController: NavController) {
                         .fillMaxHeight(0.8f)
                         .fillMaxWidth(),
                     contentAlignment = Alignment.BottomCenter
-                ){
-                   Text(
-                       text = buildAnnotatedString {
-                           withStyle(
-                               style = SpanStyle(
-                                   color = MaterialTheme.colorScheme.onPrimaryContainer,
-                                   fontSize = 12.sp,
-                                   fontFamily = AppFont.Poppins,
-                                   fontWeight = FontWeight.Normal
-                               )
-                           ){
-                               append("Don't have an Account? ")
-                           }
-                           withStyle(
-                               style = SpanStyle(
-                                   color = MaterialTheme.colorScheme.primary,
-                                   fontSize = 12.sp,
-                                   fontFamily = AppFont.Poppins,
-                                   fontWeight = FontWeight.Bold
-                               )
-                           ){
-                               append(" Register Now")
-                           }
-                       },
-                       modifier = Modifier.clickable {
-                           scope.launch {
-                               navController.navigate(Screens.RegisterScreen.route){
-                                   popUpTo(Screens.RegisterScreen.route) {
-                                       inclusive = true
-                                   }
-                               }
-                           }
+                ) {
+                    Text(
+                        text = buildAnnotatedString {
+                            withStyle(
+                                style = SpanStyle(
+                                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    fontSize = 12.sp,
+                                    fontFamily = AppFont.Poppins,
+                                    fontWeight = FontWeight.Normal
+                                )
+                            ) {
+                                append("Don't have an Account? ")
+                            }
+                            withStyle(
+                                style = SpanStyle(
+                                    color = MaterialTheme.colorScheme.primary,
+                                    fontSize = 12.sp,
+                                    fontFamily = AppFont.Poppins,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            ) {
+                                append(" Register Now")
+                            }
+                        },
+                        modifier = Modifier.clickable {
+                            scope.launch {
+                                navController.navigate(Screens.RegisterScreen.route) {
+                                    popUpTo(Screens.RegisterScreen.route) {
+                                        inclusive = true
+                                    }
+                                }
+                            }
 
-                       }
-                   )
+                        }
+                    )
                 }
 
             }

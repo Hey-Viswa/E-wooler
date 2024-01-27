@@ -17,7 +17,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Password
 import androidx.compose.material.icons.outlined.PersonOutline
-import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
@@ -45,6 +44,7 @@ import tech_titans.e_wooler.Presentation.Onboarding.Component.AppFont
 import tech_titans.e_wooler.Presentation.Onboarding.Component.CustomRoundedShape
 import tech_titans.e_wooler.Presentation.Onboarding.Component.CustomText
 import tech_titans.e_wooler.Presentation.Onboarding.Component.HeadlineTextComponent
+import tech_titans.e_wooler.Presentation.Onboarding.Component.MyPasswordTextField
 import tech_titans.e_wooler.Presentation.Onboarding.Component.MyTextField
 import tech_titans.e_wooler.Presentation.Onboarding.Component.NormalTextComponent
 import tech_titans.e_wooler.Presentation.Onboarding.Nvgraph.Screens
@@ -105,11 +105,7 @@ fun RegisterScreen(navController: NavController) {
                 Icons.Outlined.Email,
                 null
             )
-            MyTextField(
-                labelValue = "Password",
-                Icons.Outlined.Password,
-                trailingIcon = Icons.Outlined.VisibilityOff,
-            )
+            MyPasswordTextField(labelValue = "Password", leadingIcon = Icons.Outlined.Password)
             Spacer(modifier = Modifier.height(15.dp))
             ElevatedButton(
                 onClick = {},
