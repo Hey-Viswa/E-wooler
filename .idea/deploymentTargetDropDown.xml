@@ -2,13 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="ComponentPreview">
+        <State />
+      </entry>
       <entry key="LoginActivityPreview">
         <State />
       </entry>
       <entry key="LoginActivityPreview1">
-        <State />
-      </entry>
-      <entry key="OnBoardingPagePreview">
         <State />
       </entry>
       <entry key="PageIndicatorPreview">
@@ -18,7 +18,20 @@
         <State />
       </entry>
       <entry key="app">
-        <State />
+        <State>
+          <runningDeviceTargetSelectedWithDropDown>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\Viswaranjan\.android\avd\Pixel_7_Pro.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-01-27T11:20:23.148231600Z" />
+        </State>
       </entry>
     </value>
   </component>

@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 import tech_titans.e_wooler.Presentation.Onboarding.Common.Dimens.MediumPadding2
@@ -100,7 +101,11 @@ fun OnBoardingScreen(
                         scope.launch {
                             if (pagerState.currentPage == 2) {
                                 // Handle navigation to the next destination
-                                navController.navigate(Screens.SignupAndLoginScreen.route)
+                                navController.navigate(Screens.SignupAndLoginScreen.route){
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        inclusive = true
+                                    }
+                                }
                             } else {
                                 pagerState.animateScrollToPage(
                                     page = pagerState.currentPage + 1,

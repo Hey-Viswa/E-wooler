@@ -47,11 +47,7 @@ object AppModule {
         auth = Firebase.auth
     )
 
-//    @Provides
-//    @Singleton
-//    fun providesDatabaseRepositoryImpl(): DatabaseRepository {
-//        return DatabaseRepositoryImpl()
-//    }
+
 
 
 }
