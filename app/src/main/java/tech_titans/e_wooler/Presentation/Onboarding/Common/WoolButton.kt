@@ -29,7 +29,7 @@ fun WoolButton(
         elevation = ButtonDefaults.buttonElevation(
             defaultElevation = 5.dp
         ),
-        shape = RoundedCornerShape(size = 10.dp)
+        shape = RoundedCornerShape(size = 20.dp)
         ) {
             Text(
                 text = text,

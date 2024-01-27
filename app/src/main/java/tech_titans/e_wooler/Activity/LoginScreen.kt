@@ -106,7 +106,7 @@ fun LoginScreen(navController: NavController) {
                 elevation = ButtonDefaults.buttonElevation(
                     defaultElevation = 5.dp
                 ),
-                shape = RoundedCornerShape(size = 10.dp),
+                shape = RoundedCornerShape(size = 20.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)

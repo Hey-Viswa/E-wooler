@@ -134,7 +134,8 @@ fun MyTextField(
         value = textValue.value,
         onValueChange = {
             textValue.value = it
-        }
+        },
+        maxLines = 1,
     )
 }
 
@@ -180,7 +181,8 @@ fun MyPasswordTextField(
         value = password.value,
         onValueChange = {
             password.value = it
-        }
+        },
+        maxLines = 1
     )
 }
 

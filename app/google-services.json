@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "460167819630",
+    "project_id": "ewooler-c169d",
+    "storage_bucket": "ewooler-c169d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460167819630:android:635647575ae852adadd17f",
+        "android_client_info": {
+          "package_name": "com.binary.ewooler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460167819630-guo4dog7qaluedpm15lltqhv2cketjii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvo0CBj1ZWuJNCk3ZYuKHqgCUqpDTtRFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460167819630-guo4dog7qaluedpm15lltqhv2cketjii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460167819630:android:7ab928e6fd3c714badd17f",
+        "android_client_info": {
+          "package_name": "tech_titans.e_wooler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460167819630-guo4dog7qaluedpm15lltqhv2cketjii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvo0CBj1ZWuJNCk3ZYuKHqgCUqpDTtRFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460167819630-guo4dog7qaluedpm15lltqhv2cketjii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
