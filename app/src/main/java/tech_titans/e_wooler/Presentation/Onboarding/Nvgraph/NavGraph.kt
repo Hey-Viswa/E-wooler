@@ -26,10 +26,10 @@ fun NavigationGraph(
             SignupAndLoginScreenLayout(navController = navController)
         }
         composable(route = Screens.RegisterScreen.route) {
-            RegisterScreen()
+            RegisterScreen(navController = navController)
         }
         composable(route = Screens.LoginScreen.route) {
-            LoginScreen()
+            LoginScreen(navController = navController)
         }
     }
 }

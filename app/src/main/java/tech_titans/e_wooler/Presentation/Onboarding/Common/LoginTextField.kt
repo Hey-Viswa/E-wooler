@@ -144,7 +144,7 @@ fun LoginTextFieldPassword(
         )
 }
 @Composable
-private fun SocialMediaSection() {
+fun SocialMediaSection() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -163,20 +163,13 @@ private fun SocialMediaSection() {
             ) {
 
             SocialMediaLogin(
-                icon = R.drawable.google,
+                icon = R.drawable.google_color_svgrepo_com,
                 text = "Google  ",
                 modifier = Modifier.weight(1f)
             ) {
 
             }
             Spacer(modifier = Modifier.width(20.dp))
-            SocialMediaLogin(
-                icon = R.drawable.facebook,
-                text = "Facebook",
-                modifier = Modifier.weight(1f)
-            ) {
-
-            }
         }
     }
 }

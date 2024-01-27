@@ -36,11 +36,11 @@ fun SocialMediaLogin(
 ) {
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(10.dp))
+            .clip(RoundedCornerShape(12.dp))
             .socialMedia()
             .clickable { onClick() }
             .height(40.dp)
-            .padding(horizontal = 5.dp),
+            .padding(horizontal = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
 
@@ -54,7 +54,7 @@ fun SocialMediaLogin(
         Spacer(modifier = modifier.width(5.dp))
         Text(
             text = text,
-            style = MaterialTheme.typography.titleSmall.copy(color = Color(0xff64748b))
+            style = MaterialTheme.typography.labelMedium.copy(color = Color(0xff64748b))
         )
     }
 }

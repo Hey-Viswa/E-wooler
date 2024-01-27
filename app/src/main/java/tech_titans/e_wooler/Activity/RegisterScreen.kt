@@ -1,7 +1,10 @@
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,31 +12,48 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Password
 import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material.icons.outlined.VisibilityOff
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import tech_titans.e_wooler.Presentation.Onboarding.Component.CustomClickableText
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.launch
+import tech_titans.e_wooler.Presentation.Onboarding.Common.SocialMediaLogin
+import tech_titans.e_wooler.Presentation.Onboarding.Component.AppFont
 import tech_titans.e_wooler.Presentation.Onboarding.Component.CustomRoundedShape
+import tech_titans.e_wooler.Presentation.Onboarding.Component.CustomText
 import tech_titans.e_wooler.Presentation.Onboarding.Component.HeadlineTextComponent
 import tech_titans.e_wooler.Presentation.Onboarding.Component.MyTextField
 import tech_titans.e_wooler.Presentation.Onboarding.Component.NormalTextComponent
+import tech_titans.e_wooler.Presentation.Onboarding.Nvgraph.Screens
 import tech_titans.e_wooler.R
 import tech_titans.e_wooler.ui.theme.EwoolerTheme
 
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(navController: NavController) {
+    val scope = rememberCoroutineScope()
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -60,11 +80,11 @@ fun RegisterScreen() {
             Box(
 
                 modifier = Modifier
-                    .width(260.dp)
+                    .width(200.dp)
                     .align(Alignment.CenterHorizontally),
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.undraw_sign_up_n6im),
+                    painter = painterResource(id = R.drawable.undraw_undraw_undraw_undraw_undraw_users_per_minute_1e4q_t22j__1__0ngf__1__27dv_30ul),
                     contentDescription = null,
 
                     )
@@ -90,8 +110,107 @@ fun RegisterScreen() {
                 Icons.Outlined.Password,
                 trailingIcon = Icons.Outlined.VisibilityOff,
             )
-            Spacer(modifier = Modifier.height(8.dp))
-            CustomClickableText(text = "forgot?", onClick = { /*TODO*/ }, textAlign = TextAlign.End)
+            Spacer(modifier = Modifier.height(15.dp))
+            ElevatedButton(
+                onClick = {},
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = Color.White
+                ),
+                elevation = ButtonDefaults.buttonElevation(
+                    defaultElevation = 5.dp
+                ),
+                shape = RoundedCornerShape(size = 10.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+            ) {
+                Text(
+                    text = "Login",
+                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+            CustomText(
+                text = "or Continue with",
+                color = Color.Black,
+                textAlign = TextAlign.Center,
+            )
+
+
+            Spacer(modifier = Modifier.height(10.dp))
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(modifier = Modifier.height(10.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(1f)
+                        .padding(horizontal = 20.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+
+                    ) {
+                    SocialMediaLogin(
+                        icon = R.drawable.google_color_svgrepo_com,
+                        text = "Google  ",
+                        modifier = Modifier.weight(1f)
+                    ) {
+
+                    }
+                    Spacer(modifier = Modifier.width(30.dp))
+                    SocialMediaLogin(
+                        icon = R.drawable.facebook_color_svgrepo_com,
+                        text = "Facebook",
+                        modifier = Modifier.weight(1f)
+                    ) {
+
+                    }
+
+
+                }
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight(0.8f)
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.BottomCenter
+                ){
+                    Text(
+                        text = buildAnnotatedString {
+                            withStyle(
+                                style = SpanStyle(
+                                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    fontSize = 12.sp,
+                                    fontFamily = AppFont.Poppins,
+                                    fontWeight = FontWeight.Normal
+                                )
+                            ){
+                                append("Already have an Account? ")
+                            }
+                            withStyle(
+                                style = SpanStyle(
+                                    color = MaterialTheme.colorScheme.primary,
+                                    fontSize = 12.sp,
+                                    fontFamily = AppFont.Poppins,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            ){
+                                append(" Login Now")
+                            }
+                        },
+                        modifier = Modifier.clickable {
+                            scope.launch {
+                                navController.navigate(Screens.LoginScreen.route){
+                                    popUpTo(Screens.LoginScreen.route) {
+                                        inclusive = true
+                                    }
+                                }
+                            }
+
+                        }
+                    )
+                }
+            }
         }
     }
 }
@@ -99,7 +218,8 @@ fun RegisterScreen() {
 @Preview
 @Composable
 fun RegisterScreenPreview() {
+    val navController = rememberNavController() // You should import rememberNavController
     EwoolerTheme {
-        RegisterScreen()
+        RegisterScreen(navController = navController)
     }
 }
