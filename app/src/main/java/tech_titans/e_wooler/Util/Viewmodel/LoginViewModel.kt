@@ -1,26 +1,44 @@
 package tech_titans.e_wooler.Util.Viewmodel
 
-import androidx.compose.runtime.getValue
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import tech_titans.e_wooler.Presentation.Onboarding.Model.Response
 import tech_titans.e_wooler.Presentation.Onboarding.Repository.AuthRepository
-import tech_titans.e_wooler.Presentation.Onboarding.Repository.SignInResponse
+import tech_titans.e_wooler.Util.Data.LoginUiState
+import tech_titans.e_wooler.Util.Data.UiEvent
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val repo: AuthRepository
-): ViewModel() {
-    var signInResponse by mutableStateOf<SignInResponse>(Response.Success(false))
-        private set
+) : ViewModel() {
+    private val Tag = LoginViewModel::class.simpleName
+    var loginUiState = mutableStateOf(LoginUiState())
 
-    fun signInWithEmailAndPassword(email: String, password: String) = viewModelScope.launch {
-        signInResponse = Response.Loading
-        signInResponse = repo.firebaseSignInWithEmailAndPassword(email, password)
+    fun onEvent(event: UiEvent) {
+        when (event) {
+            is UiEvent.EmailChanged -> {
+                loginUiState.value = loginUiState.value.copy(
+                    email = event.email
+                )
+                printState()
+            }
+
+            is UiEvent.PasswordChanged -> {
+                loginUiState.value = loginUiState.value.copy(
+                    password = event.password
+                )
+                printState()
+
+            }
+
+            else -> {}
+        }
+    }
+
+    private fun printState() {
+        Log.d(Tag, "Inside Printstate")
+        Log.d(Tag, loginUiState.value.toString())
     }
 }

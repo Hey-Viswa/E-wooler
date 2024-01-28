@@ -9,10 +9,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,8 +30,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -95,9 +101,9 @@ fun CustomRoundedShape(
 fun MyTextField(
     labelValue: String,
     leadingIcon: ImageVector,
-    trailingIcon: ImageVector?,
-    onTrailingIconClick: () -> Unit = {}
+    onTextSelected: (String) -> Unit
 ) {
+    val localFocusManager = LocalFocusManager.current
     val textValue = remember {
         mutableStateOf("")
     }
@@ -109,31 +115,39 @@ fun MyTextField(
         shape = RoundedCornerShape(12.dp),
 
         colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedTextColor = MaterialTheme.colorScheme.primary,
             focusedBorderColor = MaterialTheme.colorScheme.primary,
             focusedLabelColor = MaterialTheme.colorScheme.primary,
             focusedLeadingIconColor = MaterialTheme.colorScheme.primary,
+            focusedTrailingIconColor = MaterialTheme.colorScheme.primary,
             unfocusedBorderColor = MaterialTheme.colorScheme.onPrimaryContainer,
             unfocusedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer,
             unfocusedLeadingIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            unfocusedTrailingIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            unfocusedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
             cursorColor = MaterialTheme.colorScheme.primary,
             containerColor = Color(0xfff7f8f8),
-            focusedTrailingIconColor = MaterialTheme.colorScheme.primary,
-            unfocusedTrailingIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            focusedTextColor = MaterialTheme.colorScheme.primary,
-            unfocusedTextColor = MaterialTheme.colorScheme.onPrimaryContainer
+            errorBorderColor = MaterialTheme.colorScheme.error,
+            errorLabelColor = MaterialTheme.colorScheme.error,
+            errorCursorColor = MaterialTheme.colorScheme.error,
+            errorLeadingIconColor = MaterialTheme.colorScheme.error,
+            errorTrailingIconColor = MaterialTheme.colorScheme.error,
+            errorTextColor = MaterialTheme.colorScheme.error
+
         ),
         leadingIcon = { Icon(imageVector = leadingIcon, contentDescription = null) },
-        trailingIcon = {
-            trailingIcon?.let {
-                IconButton(onClick = onTrailingIconClick) {
-                    Icon(imageVector = it, contentDescription = null)
-                }
-            }
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Email,
+            imeAction = ImeAction.Next
+        ),
+        keyboardActions = KeyboardActions {
+            localFocusManager.clearFocus()
         },
-        keyboardOptions = KeyboardOptions.Default,
         value = textValue.value,
         onValueChange = {
             textValue.value = it
+            onTextSelected(it)
         },
         maxLines = 1,
     )
@@ -144,7 +158,9 @@ fun MyTextField(
 fun MyPasswordTextField(
     labelValue: String,
     leadingIcon: ImageVector,
+    onTextSelected: (String) -> Unit
 ) {
+    val localFocusManager = LocalFocusManager.current
     val password = remember { mutableStateOf("") }
     val passwordVisible = remember { mutableStateOf(false) }
 
@@ -166,21 +182,36 @@ fun MyPasswordTextField(
             focusedTrailingIconColor = MaterialTheme.colorScheme.primary,
             unfocusedTrailingIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
             focusedTextColor = MaterialTheme.colorScheme.primary,
-            unfocusedTextColor = MaterialTheme.colorScheme.onPrimaryContainer
+            unfocusedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            errorBorderColor = MaterialTheme.colorScheme.error,
+            errorLabelColor = MaterialTheme.colorScheme.error,
+            errorCursorColor = MaterialTheme.colorScheme.error,
+            errorLeadingIconColor = MaterialTheme.colorScheme.error,
+            errorTrailingIconColor = MaterialTheme.colorScheme.error,
+            errorTextColor = MaterialTheme.colorScheme.error
         ),
+        keyboardActions = KeyboardActions {
+            localFocusManager.clearFocus()
+        },
         leadingIcon = { Icon(imageVector = leadingIcon, contentDescription = null) },
         trailingIcon = {
             IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
-                val icon = if (passwordVisible.value) Icons.Outlined.Visibility else Icons.Outlined.VisibilityOff
+                val icon =
+                    if (passwordVisible.value) Icons.Outlined.Visibility else Icons.Outlined.VisibilityOff
                 val description = if (passwordVisible.value) "Hide Password" else "Show Password"
                 Icon(imageVector = icon, contentDescription = description)
             }
         },
         visualTransformation = if (passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Password,
+            imeAction = ImeAction.Done
+        ),
         value = password.value,
         onValueChange = {
             password.value = it
+            onTextSelected(it)
         },
         maxLines = 1
     )
@@ -226,6 +257,32 @@ fun CustomText(
     )
 }
 
+@Composable
+fun ButtonComponent(value: String, onButtonClick: () -> Unit, isEnabled: Boolean = false) {
+    ElevatedButton(
+        onClick = {
+
+        },
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = Color.White
+        ),
+        elevation = ButtonDefaults.buttonElevation(
+            defaultElevation = 5.dp
+        ),
+        shape = RoundedCornerShape(size = 20.dp),
+        enabled = isEnabled,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp)
+    ) {
+        Text(
+            text = value,
+            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold)
+        )
+    }
+}
+
 @Preview
 @Composable
 fun ComponentPreview() {
@@ -233,7 +290,11 @@ fun ComponentPreview() {
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-
+            MyTextField(
+                labelValue = "hello",
+                leadingIcon = Icons.Outlined.Email,
+                onTextSelected = {}
+            )
         }
     }
 }

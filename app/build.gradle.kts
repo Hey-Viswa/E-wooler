@@ -76,6 +76,8 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+    implementation (platform("com.google.firebase:firebase-bom:32.7.1"))
+
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.17.0")
     implementation("com.google.accompanist:accompanist-pager:0.32.0") // This dependency is used for horizontal pager
     implementation("androidx.datastore:datastore-preferences:1.0.0")
@@ -105,7 +107,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
 
     // extended icon
-    implementation("androidx.compose.material:material-icons-extended:1.6.0-rc01")
+    implementation("androidx.compose.material:material-icons-extended:1.6.0")
 
     implementation ("com.google.accompanist:accompanist-navigation-animation:0.21.1-beta")
 

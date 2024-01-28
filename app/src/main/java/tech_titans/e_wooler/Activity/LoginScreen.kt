@@ -11,12 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Password
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -34,11 +31,13 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 import tech_titans.e_wooler.Presentation.Onboarding.Common.SocialMediaLogin
 import tech_titans.e_wooler.Presentation.Onboarding.Component.AppFont
+import tech_titans.e_wooler.Presentation.Onboarding.Component.ButtonComponent
 import tech_titans.e_wooler.Presentation.Onboarding.Component.CustomClickableText
 import tech_titans.e_wooler.Presentation.Onboarding.Component.CustomRoundedShape
 import tech_titans.e_wooler.Presentation.Onboarding.Component.CustomText
@@ -48,10 +47,12 @@ import tech_titans.e_wooler.Presentation.Onboarding.Component.MyTextField
 import tech_titans.e_wooler.Presentation.Onboarding.Component.NormalTextComponent
 import tech_titans.e_wooler.Presentation.Onboarding.Nvgraph.Screens
 import tech_titans.e_wooler.R
+import tech_titans.e_wooler.Util.Data.UiEvent
+import tech_titans.e_wooler.Util.Viewmodel.LoginViewModel
 import tech_titans.e_wooler.ui.theme.EwoolerTheme
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = hiltViewModel()) {
     val scope = rememberCoroutineScope()
     Surface(
         modifier = Modifier
@@ -93,29 +94,19 @@ fun LoginScreen(navController: NavController) {
             MyTextField(
                 labelValue = "Email",
                 Icons.Outlined.Email,
-                null
+                onTextSelected = {
+                    loginViewModel.onEvent(UiEvent.EmailChanged(it))
+                }
             )
-            MyPasswordTextField(labelValue = "Password", leadingIcon = Icons.Outlined.Password)
+            MyPasswordTextField(
+                labelValue = "Password",
+                leadingIcon = Icons.Outlined.Password,
+                onTextSelected = {
+                    loginViewModel.onEvent(UiEvent.PasswordChanged(it))
+                }
+            )
             Spacer(modifier = Modifier.height(15.dp))
-            ElevatedButton(
-                onClick = {},
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = Color.White
-                ),
-                elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 5.dp
-                ),
-                shape = RoundedCornerShape(size = 20.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-            ) {
-                Text(
-                    text = "Login",
-                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold)
-                )
-            }
+            ButtonComponent(value = "Login", onButtonClick = { /*TODO*/ })
             Spacer(modifier = Modifier.height(8.dp))
             CustomClickableText(text = "forgot?", onClick = { /*TODO*/ }, textAlign = TextAlign.End)
             Spacer(modifier = Modifier.height(10.dp))

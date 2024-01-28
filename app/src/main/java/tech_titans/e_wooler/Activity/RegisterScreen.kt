@@ -12,13 +12,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Password
 import androidx.compose.material.icons.outlined.PersonOutline
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -36,11 +33,13 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 import tech_titans.e_wooler.Presentation.Onboarding.Common.SocialMediaLogin
 import tech_titans.e_wooler.Presentation.Onboarding.Component.AppFont
+import tech_titans.e_wooler.Presentation.Onboarding.Component.ButtonComponent
 import tech_titans.e_wooler.Presentation.Onboarding.Component.CustomRoundedShape
 import tech_titans.e_wooler.Presentation.Onboarding.Component.CustomText
 import tech_titans.e_wooler.Presentation.Onboarding.Component.HeadlineTextComponent
@@ -49,10 +48,12 @@ import tech_titans.e_wooler.Presentation.Onboarding.Component.MyTextField
 import tech_titans.e_wooler.Presentation.Onboarding.Component.NormalTextComponent
 import tech_titans.e_wooler.Presentation.Onboarding.Nvgraph.Screens
 import tech_titans.e_wooler.R
+import tech_titans.e_wooler.Util.Data.UiEvent
+import tech_titans.e_wooler.Util.Viewmodel.RegisterViewModel
 import tech_titans.e_wooler.ui.theme.EwoolerTheme
 
 @Composable
-fun RegisterScreen(navController: NavController) {
+fun RegisterScreen(navController: NavController,registerViewModel: RegisterViewModel = hiltViewModel()) {
     val scope = rememberCoroutineScope()
     Surface(
         modifier = Modifier
@@ -93,39 +94,37 @@ fun RegisterScreen(navController: NavController) {
             MyTextField(
                 labelValue = "First Name",
                 Icons.Outlined.PersonOutline,
-                null
+                onTextSelected = {
+                    registerViewModel.onEvent(UiEvent.FirstNameChanged(it))
+                }
+
             )
             MyTextField(
                 labelValue = "Last Name",
                 Icons.Outlined.PersonOutline,
-                null
+                onTextSelected = {
+                    registerViewModel.onEvent(UiEvent.LastNameChanged(it))
+                }
+
+
             )
             MyTextField(
                 labelValue = "Email",
                 Icons.Outlined.Email,
-                null
+                onTextSelected = {
+                    registerViewModel.onEvent(UiEvent.EmailChanged(it))
+                }
+
             )
-            MyPasswordTextField(labelValue = "Password", leadingIcon = Icons.Outlined.Password)
+            MyPasswordTextField(
+                labelValue = "Password",
+                leadingIcon = Icons.Outlined.Password,
+                onTextSelected = {
+                    registerViewModel.onEvent(UiEvent.PasswordChanged(it))
+                }
+            )
             Spacer(modifier = Modifier.height(15.dp))
-            ElevatedButton(
-                onClick = {},
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = Color.White
-                ),
-                elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 5.dp
-                ),
-                shape = RoundedCornerShape(size = 20.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-            ) {
-                Text(
-                    text = "Register",
-                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold)
-                )
-            }
+            ButtonComponent(value = "Register", onButtonClick = { /*TODO*/ }, isEnabled = false)
 
             Spacer(modifier = Modifier.height(20.dp))
             CustomText(
@@ -170,7 +169,7 @@ fun RegisterScreen(navController: NavController) {
                         .fillMaxHeight(0.8f)
                         .fillMaxWidth(),
                     contentAlignment = Alignment.BottomCenter
-                ){
+                ) {
                     Text(
                         text = buildAnnotatedString {
                             withStyle(
@@ -180,7 +179,7 @@ fun RegisterScreen(navController: NavController) {
                                     fontFamily = AppFont.Poppins,
                                     fontWeight = FontWeight.Normal
                                 )
-                            ){
+                            ) {
                                 append("Already have an Account? ")
                             }
                             withStyle(
@@ -190,13 +189,13 @@ fun RegisterScreen(navController: NavController) {
                                     fontFamily = AppFont.Poppins,
                                     fontWeight = FontWeight.Bold
                                 )
-                            ){
+                            ) {
                                 append(" Login Now")
                             }
                         },
                         modifier = Modifier.clickable {
                             scope.launch {
-                                navController.navigate(Screens.LoginScreen.route){
+                                navController.navigate(Screens.LoginScreen.route) {
                                     popUpTo(Screens.LoginScreen.route) {
                                         inclusive = true
                                     }

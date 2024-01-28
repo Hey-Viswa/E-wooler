@@ -1,38 +1,53 @@
 package tech_titans.e_wooler.Util.Viewmodel
 
-import androidx.compose.runtime.getValue
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import tech_titans.e_wooler.Presentation.Onboarding.Model.Response
 import tech_titans.e_wooler.Presentation.Onboarding.Repository.AuthRepository
-import tech_titans.e_wooler.Presentation.Onboarding.Repository.SendEmailVerificationResponse
-import tech_titans.e_wooler.Presentation.Onboarding.Repository.SignUpResponse
+import tech_titans.e_wooler.Util.Data.RegistrationUiState
+import tech_titans.e_wooler.Util.Data.UiEvent
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val repo: AuthRepository
 ): ViewModel() {
-    var signUpResponse by mutableStateOf<SignUpResponse>(Response.Success(false))
-        private set
-    var sendEmailVerificationResponse by mutableStateOf<SendEmailVerificationResponse>(
-        Response.Success(
-            false
-        )
-    )
-        private set
+    private val Tag = RegisterViewModel::class.simpleName
+    var registrationUiState = mutableStateOf(RegistrationUiState())
 
-    fun signUpWithEmailAndPassword(email: String, password: String) = viewModelScope.launch {
-        signUpResponse = Response.Loading
-        signUpResponse = repo.firebaseSignUpWithEmailAndPassword(email, password)
+    fun onEvent(event:UiEvent){
+        when(event){
+            is UiEvent.FirstNameChanged -> {
+                registrationUiState.value = registrationUiState.value.copy(
+                    firstName = event.firstName
+                )
+                printState()
+            }
+            is UiEvent.LastNameChanged -> {
+                registrationUiState.value = registrationUiState.value.copy(
+                    lastName = event.lastName
+                )
+                printState()
+            }
+            is UiEvent.EmailChanged -> {
+                registrationUiState.value = registrationUiState.value.copy(
+                    email = event.email
+                )
+                printState()
+            }
+            is UiEvent.PasswordChanged -> {
+                registrationUiState.value = registrationUiState.value.copy(
+                    password = event.password
+                )
+                printState()
+            }
+        }
+
     }
 
-    fun sendEmailVerification() = viewModelScope.launch {
-        sendEmailVerificationResponse = Response.Loading
-        sendEmailVerificationResponse = repo.sendEmailVerification()
+    private fun printState() {
+        Log.d(Tag, "Inside Printstate")
+        Log.d(Tag, registrationUiState.value.toString())
     }
 }
