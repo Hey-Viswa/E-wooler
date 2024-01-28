@@ -1,4 +1,4 @@
-
+package tech_titans.e_wooler.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -96,7 +96,8 @@ fun RegisterScreen(navController: NavController,registerViewModel: RegisterViewM
                 Icons.Outlined.PersonOutline,
                 onTextSelected = {
                     registerViewModel.onEvent(UiEvent.FirstNameChanged(it))
-                }
+                },
+                registerViewModel.registrationUiState.value.firstNameError
 
             )
             MyTextField(
@@ -104,7 +105,8 @@ fun RegisterScreen(navController: NavController,registerViewModel: RegisterViewM
                 Icons.Outlined.PersonOutline,
                 onTextSelected = {
                     registerViewModel.onEvent(UiEvent.LastNameChanged(it))
-                }
+                },
+                registerViewModel.registrationUiState.value.lastNameError
 
 
             )
@@ -113,7 +115,8 @@ fun RegisterScreen(navController: NavController,registerViewModel: RegisterViewM
                 Icons.Outlined.Email,
                 onTextSelected = {
                     registerViewModel.onEvent(UiEvent.EmailChanged(it))
-                }
+                },
+                registerViewModel.registrationUiState.value.emailError
 
             )
             MyPasswordTextField(
@@ -121,10 +124,13 @@ fun RegisterScreen(navController: NavController,registerViewModel: RegisterViewM
                 leadingIcon = Icons.Outlined.Password,
                 onTextSelected = {
                     registerViewModel.onEvent(UiEvent.PasswordChanged(it))
-                }
+                },
+                registerViewModel.registrationUiState.value.passwordError
             )
             Spacer(modifier = Modifier.height(15.dp))
-            ButtonComponent(value = "Register", onButtonClick = { /*TODO*/ }, isEnabled = false)
+            ButtonComponent(value = "Register", onButtonClick = {
+            registerViewModel.onEvent(UiEvent.RegisterbuttonClicked)
+            },isEnabled = true )
 
             Spacer(modifier = Modifier.height(20.dp))
             CustomText(

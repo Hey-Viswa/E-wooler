@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import tech_titans.e_wooler.Presentation.Onboarding.Repository.AuthRepository
 import tech_titans.e_wooler.Util.Data.LoginUiState
+import tech_titans.e_wooler.Util.Data.Rules.Validator
 import tech_titans.e_wooler.Util.Data.UiEvent
 import javax.inject.Inject
 
@@ -17,6 +18,7 @@ class LoginViewModel @Inject constructor(
     var loginUiState = mutableStateOf(LoginUiState())
 
     fun onEvent(event: UiEvent) {
+        validateDataWithRulesLogin()
         when (event) {
             is UiEvent.EmailChanged -> {
                 loginUiState.value = loginUiState.value.copy(
@@ -32,10 +34,36 @@ class LoginViewModel @Inject constructor(
                 printState()
 
             }
+            is UiEvent.LoginbuttonClicked -> {
+                signUp()
+            }
 
             else -> {}
         }
+    } private fun signUp(){
+        Log.d(Tag, "Inside login")
+        printState()
+        validateDataWithRulesLogin()
     }
+    private fun validateDataWithRulesLogin() {
+
+        val email = Validator.validateEmail(
+            email =  loginUiState.value.email
+        )
+        val password = Validator.validatePassword(
+            password =  loginUiState.value.password
+        )
+        Log.d(Tag,"Inside_Validation")
+        Log.d(Tag,"emailRes = $email")
+        Log.d(Tag,"password = $password")
+
+        loginUiState.value = loginUiState.value.copy(
+            emailError = email.status,
+            passwordError = password.status
+        )
+    }
+
+
 
     private fun printState() {
         Log.d(Tag, "Inside Printstate")

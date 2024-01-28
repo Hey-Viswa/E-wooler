@@ -1,6 +1,3 @@
-package tech_titans.e_wooler.Activity
-
-// Import the required libraries
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -33,10 +30,14 @@ import tech_titans.e_wooler.Presentation.Onboarding.Component.AppFont
 import tech_titans.e_wooler.Presentation.Onboarding.Nvgraph.Screens
 import tech_titans.e_wooler.R
 
-// Define a composable function to display the layout
-
 @Composable
-fun SignupAndLoginScreenLayout(navController: NavHostController) {
+fun SignupAndLoginScreenLayout(
+    navController: NavHostController,
+
+) {
+    val scope = rememberCoroutineScope()
+
+   
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -72,7 +73,6 @@ fun SignupAndLoginScreenLayout(navController: NavHostController) {
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            val scope = rememberCoroutineScope()
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -80,10 +80,7 @@ fun SignupAndLoginScreenLayout(navController: NavHostController) {
                     .padding(start = 40.dp, end = 40.dp),
                 onClick = {
                     scope.launch {
-                        navController.navigate(Screens.RegisterScreen.route){
-
-                        }
-
+                        navController.navigate(Screens.RegisterScreen.route)
                     }
                 },
                 elevation = ButtonDefaults.elevatedButtonElevation(
@@ -91,20 +88,15 @@ fun SignupAndLoginScreenLayout(navController: NavHostController) {
                 ),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor =  Color(0xffe9f2f7)
+                    contentColor = Color(0xffe9f2f7)
                 ),
                 shape = RoundedCornerShape(size = 20.dp)
             ) {
                 Text(
                     text = "Register",
                     style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
-                    modifier = Modifier.align(Alignment.CenterVertically),
                     fontFamily = AppFont.Poppins,
-
-
                 )
-
-
             }
             Spacer(modifier = Modifier.padding(vertical = 5.dp))
             TextButton(
@@ -114,9 +106,7 @@ fun SignupAndLoginScreenLayout(navController: NavHostController) {
                     .padding(start = 40.dp, end = 40.dp),
                 onClick = {
                     scope.launch {
-                        navController.navigate(Screens.LoginScreen.route){
-
-                        }
+                        navController.navigate(Screens.LoginScreen.route)
                     }
                 },
                 shape = RoundedCornerShape(size = 20.dp)
@@ -124,24 +114,23 @@ fun SignupAndLoginScreenLayout(navController: NavHostController) {
                 Text(
                     text = "Login",
                     style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
-                    modifier = Modifier.align(Alignment.CenterVertically),
                     color = MaterialTheme.colorScheme.primary,
                     fontFamily = AppFont.Poppins
-
                 )
-
-
             }
         }
     }
 }
-
 
 @Preview
 @Composable
 fun pre() {
     // Create a NavController instance
     val navController = rememberNavController()
-    // Call your composable function with the NavController
-    SignupAndLoginScreenLayout(navController = navController)
+
+    // Create a launcher using rememberLauncher
+
+
+    // Call your composable function with the NavController and the launcher
+    SignupAndLoginScreenLayout(navController = navController, )
 }

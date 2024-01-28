@@ -101,7 +101,8 @@ fun CustomRoundedShape(
 fun MyTextField(
     labelValue: String,
     leadingIcon: ImageVector,
-    onTextSelected: (String) -> Unit
+    onTextSelected: (String) -> Unit,
+    errorStatus: Boolean
 ) {
     val localFocusManager = LocalFocusManager.current
     val textValue = remember {
@@ -149,7 +150,8 @@ fun MyTextField(
             textValue.value = it
             onTextSelected(it)
         },
-        maxLines = 1,
+        maxLines = 1, isError = !errorStatus
+
     )
 }
 
@@ -158,7 +160,8 @@ fun MyTextField(
 fun MyPasswordTextField(
     labelValue: String,
     leadingIcon: ImageVector,
-    onTextSelected: (String) -> Unit
+    onTextSelected: (String) -> Unit,
+    errorStatus: Boolean
 ) {
     val localFocusManager = LocalFocusManager.current
     val password = remember { mutableStateOf("") }
@@ -213,7 +216,8 @@ fun MyPasswordTextField(
             password.value = it
             onTextSelected(it)
         },
-        maxLines = 1
+        maxLines = 1,
+        isError = !errorStatus
     )
 }
 
@@ -258,10 +262,10 @@ fun CustomText(
 }
 
 @Composable
-fun ButtonComponent(value: String, onButtonClick: () -> Unit, isEnabled: Boolean = false) {
+fun ButtonComponent(value: String, onButtonClick: () -> Unit, isEnabled: Boolean) {
     ElevatedButton(
         onClick = {
-
+            onButtonClick.invoke()
         },
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
@@ -293,7 +297,8 @@ fun ComponentPreview() {
             MyTextField(
                 labelValue = "hello",
                 leadingIcon = Icons.Outlined.Email,
-                onTextSelected = {}
+                onTextSelected = {},
+                errorStatus = false
             )
         }
     }

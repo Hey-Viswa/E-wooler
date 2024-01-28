@@ -1,3 +1,5 @@
+package tech_titans.e_wooler.Activity
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -96,17 +98,21 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
                 Icons.Outlined.Email,
                 onTextSelected = {
                     loginViewModel.onEvent(UiEvent.EmailChanged(it))
-                }
+                },
+                loginViewModel.loginUiState.value.emailError
             )
             MyPasswordTextField(
                 labelValue = "Password",
                 leadingIcon = Icons.Outlined.Password,
                 onTextSelected = {
                     loginViewModel.onEvent(UiEvent.PasswordChanged(it))
-                }
+                },
+                loginViewModel.loginUiState.value.passwordError
             )
             Spacer(modifier = Modifier.height(15.dp))
-            ButtonComponent(value = "Login", onButtonClick = { /*TODO*/ })
+            ButtonComponent(value = "Register", onButtonClick = {
+                loginViewModel.onEvent(UiEvent.LoginbuttonClicked)
+            }, isEnabled = true)
             Spacer(modifier = Modifier.height(8.dp))
             CustomClickableText(text = "forgot?", onClick = { /*TODO*/ }, textAlign = TextAlign.End)
             Spacer(modifier = Modifier.height(10.dp))
