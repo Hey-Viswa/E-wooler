@@ -3,8 +3,11 @@ package tech_titans.e_wooler.Util.Viewmodel
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import tech_titans.e_wooler.Presentation.Onboarding.Repository.AuthRepository
+import tech_titans.e_wooler.Util.Constants.TAG
 import tech_titans.e_wooler.Util.Data.LoginUiState
 import tech_titans.e_wooler.Util.Data.Rules.Validator
 import tech_titans.e_wooler.Util.Data.UiEvent
@@ -17,6 +20,9 @@ class LoginViewModel @Inject constructor(
     private val Tag = LoginViewModel::class.simpleName
     var loginUiState = mutableStateOf(LoginUiState())
 
+    var allValidationPassed = mutableStateOf(false)
+    var loginInProgress = mutableStateOf(false)
+
     fun onEvent(event: UiEvent) {
         validateDataWithRulesLogin()
         when (event) {
@@ -24,14 +30,14 @@ class LoginViewModel @Inject constructor(
                 loginUiState.value = loginUiState.value.copy(
                     email = event.email
                 )
-                printState()
+
             }
 
             is UiEvent.PasswordChanged -> {
                 loginUiState.value = loginUiState.value.copy(
                     password = event.password
                 )
-                printState()
+
 
             }
             is UiEvent.LoginbuttonClicked -> {
@@ -42,8 +48,7 @@ class LoginViewModel @Inject constructor(
         }
     } private fun signUp(){
         Log.d(Tag, "Inside login")
-        printState()
-        validateDataWithRulesLogin()
+        createUserInFirebase(email = loginUiState.value.email , password = loginUiState.value.password,)
     }
     private fun validateDataWithRulesLogin() {
 
@@ -53,20 +58,43 @@ class LoginViewModel @Inject constructor(
         val password = Validator.validatePassword(
             password =  loginUiState.value.password
         )
-        Log.d(Tag,"Inside_Validation")
-        Log.d(Tag,"emailRes = $email")
-        Log.d(Tag,"password = $password")
+
 
         loginUiState.value = loginUiState.value.copy(
             emailError = email.status,
             passwordError = password.status
         )
+        allValidationPassed.value = email.status && password.status
     }
 
 
 
-    private fun printState() {
-        Log.d(Tag, "Inside Printstate")
-        Log.d(Tag, loginUiState.value.toString())
+
+     private fun createUserInFirebase(email:String,password:String){
+
+         loginInProgress.value = true
+         val email = loginUiState.value.email
+         val password = loginUiState.value.password
+         val navController = NavController
+         FirebaseAuth
+             .getInstance()
+             .signInWithEmailAndPassword(email, password)
+             .addOnCompleteListener {
+                 Log.d(TAG,"Inside_login_success")
+                 Log.d(TAG,"${it.isSuccessful}")
+
+                 if(it.isSuccessful){
+                     loginInProgress.value = false
+
+                 }
+             }
+             .addOnFailureListener {
+                 Log.d(TAG,"Inside_login_failure")
+                 Log.d(TAG,"${it.localizedMessage}")
+
+                 loginInProgress.value = false
+
+             }
     }
+
 }

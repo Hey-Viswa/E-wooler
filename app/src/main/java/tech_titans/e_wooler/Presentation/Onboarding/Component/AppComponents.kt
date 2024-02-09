@@ -262,7 +262,7 @@ fun CustomText(
 }
 
 @Composable
-fun ButtonComponent(value: String, onButtonClick: () -> Unit, isEnabled: Boolean) {
+fun ButtonComponent(value: String, onButtonClick: () -> Unit, isEnabled: Boolean= false) {
     ElevatedButton(
         onClick = {
             onButtonClick.invoke()

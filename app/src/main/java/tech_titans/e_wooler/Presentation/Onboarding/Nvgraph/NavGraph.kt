@@ -1,7 +1,5 @@
 package tech_titans.e_wooler.Presentation.Onboarding.Nvgraph
 
-import tech_titans.e_wooler.Activity.LoginScreen
-import tech_titans.e_wooler.Activity.RegisterScreen
 import SignupAndLoginScreenLayout
 import android.preference.PreferenceManager
 import androidx.compose.runtime.Composable
@@ -11,7 +9,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import tech_titans.e_wooler.Activity.LoginScreen
 import tech_titans.e_wooler.Activity.OnBoardingScreen
+import tech_titans.e_wooler.Activity.RegisterScreen
 
 @Composable
 fun NavigationGraph(
@@ -40,6 +40,9 @@ fun NavigationGraph(
             RegisterScreen(navController = navController)
         }
         composable(route = Screens.LoginScreen.route) {
+            LoginScreen(navController = navController)
+        }
+        composable(route = Screens.HomeScreen.route) {
             LoginScreen(navController = navController)
         }
     }

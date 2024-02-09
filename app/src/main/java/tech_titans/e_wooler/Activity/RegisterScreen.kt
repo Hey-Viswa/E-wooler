@@ -1,4 +1,5 @@
 package tech_titans.e_wooler.Activity
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -53,7 +54,10 @@ import tech_titans.e_wooler.Util.Viewmodel.RegisterViewModel
 import tech_titans.e_wooler.ui.theme.EwoolerTheme
 
 @Composable
-fun RegisterScreen(navController: NavController,registerViewModel: RegisterViewModel = hiltViewModel()) {
+fun RegisterScreen(
+    navController: NavController,
+    registerViewModel: RegisterViewModel = hiltViewModel()
+) {
     val scope = rememberCoroutineScope()
     Surface(
         modifier = Modifier
@@ -128,9 +132,13 @@ fun RegisterScreen(navController: NavController,registerViewModel: RegisterViewM
                 registerViewModel.registrationUiState.value.passwordError
             )
             Spacer(modifier = Modifier.height(15.dp))
-            ButtonComponent(value = "Register", onButtonClick = {
-            registerViewModel.onEvent(UiEvent.RegisterbuttonClicked)
-            },isEnabled = true )
+            ButtonComponent(
+                value = "Register",
+                onButtonClick = {
+                    registerViewModel.onEvent(UiEvent.RegisterbuttonClicked)
+                },
+                isEnabled = registerViewModel.allValidationPassed.value
+                )
 
             Spacer(modifier = Modifier.height(20.dp))
             CustomText(

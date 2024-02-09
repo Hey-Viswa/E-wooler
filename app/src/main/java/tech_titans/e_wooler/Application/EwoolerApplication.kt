@@ -6,4 +6,7 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class EwoolerApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+    }
 }

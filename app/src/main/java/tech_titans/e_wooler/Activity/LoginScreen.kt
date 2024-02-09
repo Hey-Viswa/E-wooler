@@ -110,9 +110,10 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
                 loginViewModel.loginUiState.value.passwordError
             )
             Spacer(modifier = Modifier.height(15.dp))
-            ButtonComponent(value = "Register", onButtonClick = {
+            ButtonComponent(value = "Login", onButtonClick = {
                 loginViewModel.onEvent(UiEvent.LoginbuttonClicked)
-            }, isEnabled = true)
+            },
+                isEnabled = loginViewModel.allValidationPassed.value)
             Spacer(modifier = Modifier.height(8.dp))
             CustomClickableText(text = "forgot?", onClick = { /*TODO*/ }, textAlign = TextAlign.End)
             Spacer(modifier = Modifier.height(10.dp))
